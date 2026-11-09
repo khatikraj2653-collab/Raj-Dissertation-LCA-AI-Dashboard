@@ -6,7 +6,7 @@
 <style>
 :root{
   --bg:#020209;--s1:rgba(255,255,255,0.03);--s2:rgba(255,255,255,0.05);
-  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.04);h
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.04);
   --purple:#B44FFF;--cyan:#00E5FF;--green:#00FF87;
   --red:#FF3B3B;--gold:#FFD60A;--orange:#FF7A2F;
   --text:#E8E8FF;--muted:#6060A0;--faint:#2A2A50;
@@ -619,7 +619,7 @@ footer{position:relative;z-index:10;text-align:center;padding:1.75rem;border-top
 
   <div class="chips sr">
     <div class="chip"><span class="chip-v g">3/6</span><span class="chip-l">perfect structural completeness on ISO 14044 Goal &amp; Scope</span></div>
-    <div class="chip"><span class="chip-v c">9/10</span><span class="chip-l">Claude Haiku 4.5 comparative assertions — best across all models</span></div>
+    <div class="chip"><span class="chip-v c">9/10</span><span class="chip-l">Claude Haiku 4.5 comparative assertions — second only to GPT-5.6 Terra (10/10)</span></div>
     <div class="chip"><span class="chip-v gd">p&lt;0.001</span><span class="chip-l">Cochran's Q confirms statistically significant differences</span></div>
     <div class="chip"><span class="chip-v r">−65 pp</span><span class="chip-l">GPT-4o-mini: maximum accuracy collapse discovered</span></div>
   </div>
@@ -636,11 +636,11 @@ footer{position:relative;z-index:10;text-align:center;padding:1.75rem;border-top
         <div id="t2CompBars"></div>
       </div>
       <div>
-        <div style="font-size:0.7rem;color:var(--muted);margin-bottom:0.5rem;font-family:'JetBrains Mono',monospace;letter-spacing:0.08em">COMPARATIVE ASSERTIONS (/ 10)</div>
+        <div style="font-size:0.7rem;color:var(--muted);margin-bottom:0.5rem;font-family:'JetBrains Mono',monospace;letter-spacing:0.08em">TECHNICAL PRECISION MARKERS (AVG %)</div>
         <div id="t2AssertBars"></div>
       </div>
       <div class="insight">
-        <strong>Claude Haiku 4.5</strong> led Task 2 overall (9/10 assertions) despite ranking 3rd on Task 1b — distinct capability profiles across task types.
+        <strong>Claude Haiku 4.5</strong> led Task 2 overall (100% structural completeness, 9/10 assertions) despite ranking 3rd on Task 1b — distinct capability profiles across task types.
       </div>
     </div>
   </div>
@@ -721,16 +721,17 @@ footer{position:relative;z-index:10;text-align:center;padding:1.75rem;border-top
 <section class="section" id="sec-heatmap">
   <div class="sh sr"><span class="obj-tag ot-r">Statistics</span><h2>Pairwise Statistical Significance — McNemar Test</h2></div>
   <div class="sr" style="color:var(--muted);font-size:0.8rem;margin-bottom:1.2rem;line-height:1.6">
-    McNemar's test on pairwise model disagreements (hard task, n=50).
-    <strong style="color:var(--green)">Green = significant difference</strong> (p&lt;0.05) &nbsp;·&nbsp;
+    McNemar's test on pairwise model disagreements (hard task, n=50), Bonferroni-corrected for 15 comparisons (α = 0.0033).
+    <strong style="color:var(--green)">Green = significant after correction</strong> &nbsp;·&nbsp;
+    <strong style="color:var(--gold)">Gold = p&lt;0.05 before correction only</strong> &nbsp;·&nbsp;
     <strong style="color:var(--red)">Red = not significant</strong>. Hover each cell for exact p-value.
   </div>
   <div class="heatmap-wrap sr">
     <div class="heatmap-grid" id="hmGrid"></div>
     <div class="hm-legend">
       <div class="hml-item"><div class="hml-box" style="background:rgba(0,255,135,0.25);border:1px solid rgba(0,255,135,0.3)"></div>p &lt; 0.001 — highly significant</div>
-      <div class="hml-item"><div class="hml-box" style="background:rgba(0,255,135,0.12);border:1px solid rgba(0,255,135,0.2)"></div>p &lt; 0.01 — significant</div>
-      <div class="hml-item"><div class="hml-box" style="background:rgba(255,214,10,0.15);border:1px solid rgba(255,214,10,0.25)"></div>p &lt; 0.05 — marginally significant</div>
+      <div class="hml-item"><div class="hml-box" style="background:rgba(0,255,135,0.12);border:1px solid rgba(0,255,135,0.2)"></div>p &lt; 0.0033 — significant after Bonferroni</div>
+      <div class="hml-item"><div class="hml-box" style="background:rgba(255,214,10,0.15);border:1px solid rgba(255,214,10,0.25)"></div>p &lt; 0.05 — not significant after Bonferroni</div>
       <div class="hml-item"><div class="hml-box" style="background:rgba(255,59,59,0.1);border:1px solid rgba(255,59,59,0.2)"></div>p ≥ 0.05 — not significant</div>
     </div>
   </div>
@@ -1115,7 +1116,7 @@ function openModal(i){
   modalChart=new Chart(document.getElementById('modalRadar'),{
     type:'radar',
     data:{
-      labels:['Easy Task','Hard Task','T2 Struct.','T2 Assertions','Field Avg'],
+      labels:['Easy Task','Hard Task','T2 Struct.','T2 Precision','Field Avg'],
       datasets:[
         {label:m.name,data:[m.easy,m.hard,m.t2c,m.t2a,avgField(m.fields)],borderColor:m.color,backgroundColor:m.color+'22',borderWidth:2,pointRadius:4,pointBackgroundColor:m.color},
         {label:'Average',data:[
@@ -1142,7 +1143,7 @@ const avgField=m=>Math.round(Object.values(m.fields).reduce((a,b)=>a+b,0)/4);
 new Chart(document.getElementById('radarChart'),{
   type:'radar',
   data:{
-    labels:['Easy Task','Hard Task','T2 Struct.','T2 Assertions','Field Avg'],
+    labels:['Easy Task','Hard Task','T2 Struct.','T2 Precision','Field Avg'],
     datasets:MODELS.map(m=>({label:m.name,data:[m.easy,m.hard,m.t2c,m.t2a,avgField(m)],borderColor:m.color,backgroundColor:m.color+'18',borderWidth:1.5,pointRadius:3,pointBackgroundColor:m.color,pointBorderColor:'transparent'}))
   },
   options:{responsive:true,plugins:{legend:{display:true,position:'bottom',labels:{color:'#6060A0',font:{size:9.5},boxWidth:8,boxHeight:8,padding:8}}},scales:{r:{min:0,max:100,ticks:{stepSize:25,color:'#3A3A60',font:{size:9},backdropColor:'transparent',callback:v=>v+'%'},grid:{color:'rgba(255,255,255,0.05)'},angleLines:{color:'rgba(255,255,255,0.05)'},pointLabels:{color:'#6060A0',font:{size:9.5}}}}}
@@ -1246,7 +1247,7 @@ const BATTLE_METRICS=[
   {key:'easy',  label:'Task 1a Easy'},
   {key:'hard',  label:'Task 1b Hard'},
   {key:'t2c',   label:'T2 Completeness'},
-  {key:'t2a',   label:'T2 Assertions'},
+  {key:'t2a',   label:'T2 Precision'},
   {key:'fAvg',  label:'Field Avg'},
 ];
 function mVal(m,key){return key==='fAvg'?Math.round(Object.values(m.fields).reduce((a,b)=>a+b,0)/4):m[key];}
@@ -1429,23 +1430,25 @@ new IntersectionObserver(e=>{if(e[0].isIntersecting)runBattle();},{threshold:0.3
 (function(){
   const NAMES=['Gemini 3.5\nFlash','GPT-5.6\nTerra','Claude\nHaiku 4.5','Llama 3.3\n70B','GPT-OSS\n120B','GPT-4o\nmini'];
   const COLORS=['#00FF87','#00E5FF','#B44FFF','#FFD60A','#FF7A2F','#FF3B3B'];
-  // Upper-triangle p-values (McNemar, hard task n=50), symmetric matrix
-  // [row][col] where row < col
+  // Upper-triangle p-values (exact McNemar, hard task n=50), symmetric matrix
+  // [row][col] where row < col. Values are those in the dissertation repo's
+  // results/hard_task_summary.json (pairwise_mcnemar_bonferroni).
   const PVAL=[
-    [null, 0.508,  0.227,  0.015,  0.000006, 0.000001],
-    [null, null,   0.680,  0.047,  0.003,    0.0001  ],
-    [null, null,   null,   0.083,  0.008,    0.0001  ],
-    [null, null,   null,   null,   0.083,    0.003   ],
-    [null, null,   null,   null,   null,     0.047   ],
-    [null, null,   null,   null,   null,     null    ],
+    [null, 0.507812, 0.226562, 0.004425, 0.000006, 0.000000002],
+    [null, null,     0.774414, 0.021271, 0.000008, 0.000001   ],
+    [null, null,     null,     0.057373, 0.001544, 0.000005   ],
+    [null, null,     null,     null,     0.115318, 0.000911   ],
+    [null, null,     null,     null,     null,     0.078354   ],
+    [null, null,     null,     null,     null,     null       ],
   ];
+  const ALPHA=0.05/15; // Bonferroni threshold for the 15 pairwise tests (0.0033)
   function getP(r,c){
     if(r===c)return null;
     return r<c?PVAL[r][c]:PVAL[c][r];
   }
   function cellClass(p){
     if(p<0.001)return 'hm-sig3';
-    if(p<0.01) return 'hm-sig2';
+    if(p<ALPHA)return 'hm-sig2';
     if(p<0.05) return 'hm-sig1';
     return 'hm-ns';
   }
@@ -1455,8 +1458,8 @@ new IntersectionObserver(e=>{if(e[0].isIntersecting)runBattle();},{threshold:0.3
   }
   function sigLabel(p){
     if(p<0.001)return '★★★ Highly Significant';
-    if(p<0.01) return '★★ Significant';
-    if(p<0.05) return '★ Marginally Significant';
+    if(p<ALPHA)return '★★ Significant after Bonferroni';
+    if(p<0.05) return 'Not significant after Bonferroni';
     return 'Not Significant';
   }
 
